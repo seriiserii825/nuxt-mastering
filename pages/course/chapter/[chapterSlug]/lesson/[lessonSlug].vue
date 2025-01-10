@@ -1,3 +1,29 @@
+<script setup>
+const course = useCourse();
+const route = useRoute();
+
+const chapter = computed(() => {
+  return course.chapters.find(
+    (chapter) => chapter.slug === route.params.chapterSlug
+  );
+});
+
+const lesson = computed(() => {
+  return chapter.value.lessons.find(
+    (lesson) => lesson.slug === route.params.lessonSlug
+  );
+});
+useHead({
+  title: `${lesson.value.title} - ${course.title}`,
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: lesson.value.text,
+    },
+  ],
+})
+</script>
 <template>
   <div>
     <p class="mt-0 mb-1 font-bold uppercase text-slate-400">
@@ -27,19 +53,3 @@
   </div>
 </template>
 
-<script setup>
-const course = useCourse();
-const route = useRoute();
-
-const chapter = computed(() => {
-  return course.chapters.find(
-    (chapter) => chapter.slug === route.params.chapterSlug
-  );
-});
-
-const lesson = computed(() => {
-  return chapter.value.lessons.find(
-    (lesson) => lesson.slug === route.params.lessonSlug
-  );
-});
-</script>
