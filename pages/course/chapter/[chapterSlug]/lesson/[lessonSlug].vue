@@ -1,29 +1,3 @@
-<script setup>
-const course = useCourse();
-const route = useRoute();
-
-const chapter = computed(() => {
-  return course.chapters.find(
-    (chapter) => chapter.slug === route.params.chapterSlug
-  );
-});
-
-const lesson = computed(() => {
-  return chapter.value.lessons.find(
-    (lesson) => lesson.slug === route.params.lessonSlug
-  );
-});
-useHead({
-  title: `${lesson.value.title} - ${course.title}`,
-  meta: [
-    {
-      hid: 'description',
-      name: 'description',
-      content: lesson.value.text,
-    },
-  ],
-})
-</script>
 <template>
   <div>
     <p class="mt-0 mb-1 font-bold uppercase text-slate-400">
@@ -50,6 +24,58 @@ useHead({
     </div>
     <VideoPlayer class="mb-6" v-if="lesson.videoId" :videoId="lesson.videoId" />
     <p>{{ lesson.text }}</p>
+    <LessonCompleteButton
+        :model-value="isLessonCompleted"
+        @update:model-value="toggleComplete"
+    />
   </div>
 </template>
+<script setup>
+const course = useCourse();
+const route = useRoute();
 
+const chapter = computed(() => {
+  return course.chapters.find(
+    (chapter) => chapter.slug === route.params.chapterSlug
+  );
+});
+
+const lesson = computed(() => {
+  return chapter.value.lessons.find(
+    (lesson) => lesson.slug === route.params.lessonSlug
+  );
+});
+
+const progress = useState("progress", () => {
+  return [];
+});
+
+const isLessonCompleted = computed(() => {
+  if (!progress.value[chapter.value.number - 1]) {
+    return false;
+  }
+  if (!progress.value[chapter.value.number - 1][lesson.value.number - 1]) {
+    return false;
+  }
+  return progress.value[chapter.value.number - 1][lesson.value.number - 1];
+});
+
+const toggleComplete = () => {
+  if (!progress.value[chapter.value.number - 1]) {
+    progress.value[chapter.value.number - 1] = [];
+  }
+  progress.value[chapter.value.number - 1][lesson.value.number - 1] =
+    !isLessonCompleted.value;
+};
+
+useHead({
+  title: `${lesson.value.title} - ${course.title}`,
+  meta: [
+    {
+      hid: "description",
+      name: "description",
+      content: lesson.value.text,
+    },
+  ],
+});
+</script>
