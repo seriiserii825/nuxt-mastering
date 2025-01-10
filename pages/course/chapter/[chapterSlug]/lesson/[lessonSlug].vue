@@ -20,6 +20,7 @@
         Download Video
       </a>
     </div>
+    <VideoPlayer class="mb-6" v-if="lesson.videoId" :videoId="lesson.videoId" />
     <p>{{ lesson.text }}</p>
   </div>
 </template>
