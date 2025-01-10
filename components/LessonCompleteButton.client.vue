@@ -1,3 +1,21 @@
+<template>
+  <label
+    class="inline-block my-3 px-4 py-2 font-bold text-white rounded cursor-pointer"
+    :class="{
+      'bg-green-500': modelValue,
+      'bg-gray-500': !modelValue,
+    }"
+  >
+    <input
+      type="checkbox"
+      :value="modelValue"
+      @input="() => $emit('update:modelValue', !modelValue)"
+      class="hidden"
+    />
+    {{ modelValue ? 'Completed!' : 'Mark as complete' }}
+  </label>
+</template>
+
 <script setup>
 defineProps({
   modelValue: {
@@ -14,21 +32,3 @@ defineEmits(['update:modelValue']);
   display: none;
 }
 </style>
-<template>
-  <label
-    class="inline-block px-4 py-2 my-4 font-bold text-white rounded cursor-pointer hover:bg-gray-700"
-    :class="{
-      'bg-green-500': modelValue,
-      'bg-gray-500': !modelValue,
-    }"
-  >
-    <input
-      type="checkbox"
-      :value="modelValue"
-      @input="() => $emit('update:modelValue', !modelValue)"
-      class="hidden"
-    />
-    {{ modelValue ? 'Completed!' : 'Mark as complete' }}
-  </label>
-</template>
-

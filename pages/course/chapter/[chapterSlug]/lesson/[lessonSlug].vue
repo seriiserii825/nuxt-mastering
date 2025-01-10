@@ -5,31 +5,30 @@
     </p>
     <h2 class="my-0">{{ lesson.title }}</h2>
     <div class="flex mt-2 mb-8 space-x-4">
-      <nuxt-link
+      <NuxtLink
         v-if="lesson.sourceUrl"
-        target="_blank"
         class="font-normal text-gray-500 text-md"
-        :href="lesson.sourceUrl"
+        :to="lesson.sourceUrl"
       >
         Download Source Code
-      </nuxt-link>
-      <nuxt-link
+      </NuxtLink>
+      <NuxtLink
         v-if="lesson.downloadUrl"
         class="font-normal text-gray-500 text-md"
-        target="_blank"
-        :href="lesson.downloadUrl"
+        :to="lesson.downloadUrl"
       >
         Download Video
-      </nuxt-link>
+      </NuxtLink>
     </div>
-    <VideoPlayer class="mb-6" v-if="lesson.videoId" :videoId="lesson.videoId" />
+    <VideoPlayer v-if="lesson.videoId" :videoId="lesson.videoId" />
     <p>{{ lesson.text }}</p>
     <LessonCompleteButton
-        :model-value="isLessonCompleted"
-        @update:model-value="toggleComplete"
+      :model-value="isLessonComplete"
+      @update:model-value="toggleComplete"
     />
   </div>
 </template>
+
 <script setup>
 const course = useCourse();
 const route = useRoute();
@@ -46,17 +45,24 @@ const lesson = computed(() => {
   );
 });
 
-const progress = useState("progress", () => {
-  return [];
+const title = computed(() => {
+  return `${lesson.value.title} - ${course.title}`;
+});
+useHead({
+  title,
 });
 
-const isLessonCompleted = computed(() => {
+const progress = useLocalStorage("progress", []);
+
+const isLessonComplete = computed(() => {
   if (!progress.value[chapter.value.number - 1]) {
     return false;
   }
+
   if (!progress.value[chapter.value.number - 1][lesson.value.number - 1]) {
     return false;
   }
+
   return progress.value[chapter.value.number - 1][lesson.value.number - 1];
 });
 
@@ -64,18 +70,8 @@ const toggleComplete = () => {
   if (!progress.value[chapter.value.number - 1]) {
     progress.value[chapter.value.number - 1] = [];
   }
-  progress.value[chapter.value.number - 1][lesson.value.number - 1] =
-    !isLessonCompleted.value;
-};
 
-useHead({
-  title: `${lesson.value.title} - ${course.title}`,
-  meta: [
-    {
-      hid: "description",
-      name: "description",
-      content: lesson.value.text,
-    },
-  ],
-});
+  progress.value[chapter.value.number - 1][lesson.value.number - 1] =
+    !isLessonComplete.value;
+};
 </script>
