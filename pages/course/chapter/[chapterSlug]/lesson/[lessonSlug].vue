@@ -5,20 +5,22 @@
     </p>
     <h2 class="my-0">{{ lesson.title }}</h2>
     <div class="flex mt-2 mb-8 space-x-4">
-      <a
+      <nuxt-link
         v-if="lesson.sourceUrl"
+        target="_blank"
         class="font-normal text-gray-500 text-md"
         :href="lesson.sourceUrl"
       >
         Download Source Code
-      </a>
-      <a
+      </nuxt-link>
+      <nuxt-link
         v-if="lesson.downloadUrl"
         class="font-normal text-gray-500 text-md"
+        target="_blank"
         :href="lesson.downloadUrl"
       >
         Download Video
-      </a>
+      </nuxt-link>
     </div>
     <VideoPlayer class="mb-6" v-if="lesson.videoId" :videoId="lesson.videoId" />
     <p>{{ lesson.text }}</p>
