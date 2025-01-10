@@ -29,7 +29,10 @@ const { chapters } = useCourse();
               <li v-for="(lesson, index) in chapter.lessons" :key="lesson.slug">
                 <nuxt-link
                   class="block pl-2 mb-3 font-semibold"
-                  :to="`/course/chapter/${chapter.slug}/lesson/${lesson.slug}`"
+                  :to="lesson.path"
+                  :class="{
+                    'text-blue-500': lesson.path === $route.fullPath,
+                  }"
                 >
                   <span class="text-gray-500">{{ index + 1 }}.</span>
                   {{ lesson.title }}
