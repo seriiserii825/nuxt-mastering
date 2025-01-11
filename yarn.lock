@@ -3835,6 +3835,11 @@ nuxi@^3.17.2:
   resolved "https://registry.yarnpkg.com/nuxi/-/nuxi-3.19.1.tgz#abf77b00a865085aafe75bc28b6d7cd406705d4d"
   integrity sha512-yjJggqwSkymaWM/f4+1nPBTW1Hg7tZ0ZQax69zlqq+Ftc6rfAnJSgGUwhAuoo7E7x3JGQ0Uzzokz11Y7PuRj6g==
 
+nuxi@^3.20.0:
+  version "3.20.0"
+  resolved "https://registry.yarnpkg.com/nuxi/-/nuxi-3.20.0.tgz#2cddbce673574c16ad56d031431ad3f5170efc74"
+  integrity sha512-E1R6QvUoinlAkP1EMesU0Dn1xLDLFli9LzaVAYdsmC2frHGIc15jMDRzwkAgK/8ae0H+tjHlfi/Qps/jZwF+7g==
+
 nuxt@^3.15.1:
   version "3.15.1"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-3.15.1.tgz#ef8743d458b5103e510b89a06929449bc3373230"
