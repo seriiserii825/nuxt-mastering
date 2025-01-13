@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "predev": "bash /home/serii/Documents/bash/bash-scripts/zsh_nvm",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
