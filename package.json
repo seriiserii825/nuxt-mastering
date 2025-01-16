@@ -4,7 +4,6 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "predev": "bash /home/serii/Documents/bash/bash-scripts/zsh_nvm",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -18,7 +17,8 @@
     "vue-router": "latest"
   },
   "engines": {
-    "node": "20.18.1"
+    "node": "20.18.1",
+    "pnpm": "9.15.4"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.2"
